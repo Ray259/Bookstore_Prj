@@ -6,16 +6,17 @@ let ProductID = 0;
 let obj = ref([]);
 
 let searchedItem = ref("");
-defineProps({
-    obj: {
-        type: Object,
+const props=defineProps({
+    api: {
+        type: String,
         required: true,
     },
 });
 
+
 onMounted(async () => {
     try {
-        const response = await axios.get("http://localhost:8080/api/books");
+        const response = await axios.get("http://localhost:8080/"+props.api);
         obj.value = await response.data;
         await console.log(obj.value);
     } catch (error) {
@@ -26,7 +27,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="">
+    <div>
         <ul class="flex flex-wrap">
             <li
                 v-for="item in obj"

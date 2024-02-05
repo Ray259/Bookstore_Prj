@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const isScrolled = ref(false);
-
+let searchedItem = ref("");
 onMounted(() => {
     window.addEventListener("scroll", handleScroll);
 });
@@ -12,10 +12,19 @@ onUnmounted(() => {
 });
 
 function handleScroll() {
-    isScrolled.value = window.scrollY > 10;
+    isScrolled.value = window.scrollY > 2;
 }
-let data = ref({});
-let searchedItem = ref("");
+let genres = ref([]);
+
+onMounted(async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/books/genres");
+        genres.value = await response.data;
+        await console.log(genres.value);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+});
 async function search() {
     // if (searchedItem.value != null) {
     //     let postData = { productname: searchedItem.value };
@@ -60,39 +69,46 @@ async function search() {
                 </form>
             </div>
             <!-- Icon -->
-            <div class="flex flex-row w-2/3 col-lg-3 col-md-3 col-sm-4 hidden-xs hidden-sm hidden-md">
+            <div
+                class="flex flex-row w-2/3 col-lg-3 col-md-3 col-sm-4 hidden-xs hidden-sm hidden-md"
+            >
                 <div class="m-4 text-sm">
-                    <img class="h-8 mb-1.5 mx-auto" :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/heart.png?1702443694490'" />
+                    <img
+                        class="h-8 mb-1.5 mx-auto"
+                        :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/heart.png?1702443694490'"
+                    />
                     <span class="mx-auto text-xs">Wish List</span>
                 </div>
                 <div class="mr-4 my-auto text-sm">
-                    <img class="h-8 mb-1.5 mx-auto" :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/giohang1.png?1702443694490'" />
+                    <img
+                        class="h-8 mb-1.5 mx-auto"
+                        :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/giohang1.png?1702443694490'"
+                    />
                     <span class="mx-2 text-xs">Cart</span>
                 </div>
                 <div class="mr-4 my-auto text-sm">
-                    <img class="h-8 mb-1.5 mx-auto" :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/acc.png?1702443694490'" />
+                    <img
+                        class="h-8 mb-1.5 mx-auto"
+                        :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/acc.png?1702443694490'"
+                    />
                     <span class="mx-1 text-xs">User</span>
                 </div>
             </div>
-            
         </div>
         <!-- NavBar -->
         <div
             :class="{ 'top-0': isScrolled }"
-            class="fixed bg-red-600 z-50 w-full flex h-[3.5rem] px-[2rem] items-center justify-between"
+            class="fixed bg-red-600 z-50 w-full flex h-[3rem] px-[2rem] items-center justify-between"
         >
             <div></div>
             <div class="flex">
-                <HeaderNavItem link="/" name="STARTED" />
-                <HeaderNavItem link="/todo" name="TODO" />
-                <HeaderNavItem link="/menu" name="MENU" />
-                <HeaderNavItem link="/about" name="ABOUT" />
-                <HeaderNavItem link="/" name="HELP" />
+                <div v-for="g in genres" :key="g['prio']">
+                    <HeaderNavItem :link="'/genre/' + g['name']" :name="g['name']" />
+                </div>
+                <HeaderNavItem link="/cart" name="Events" />
+                <HeaderNavItem link="/login" name="About Bookworm" />
             </div>
-            <div class="flex font-bold">
-                <HeaderNavItem link="/cart" name="Cart" />
-                <HeaderNavItem link="/login" name="Login" />
-            </div>
+            <div></div>
         </div>
     </div>
 </template>

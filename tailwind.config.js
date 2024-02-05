@@ -1,7 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ["./app/pages/**/*.vue", "./app/components/**/*.vue"],
-    plugins: [require("tailwind-fontawesome")],
+    plugins: [
+        require("tailwind-fontawesome")({
+            version: 6,
+        }),
+    ],
     safelist: [
         "text-2xl",
         "text-3xl",

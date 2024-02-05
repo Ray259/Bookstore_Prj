@@ -1,12 +1,12 @@
 <template>
     <div>
         <NuxtLink :to="link">
-            <div class="p-4 h-[3.5rem] text-white hover:bg-yellow-400">{{ name }}</div>
+            <div class="p-4 h-[3rem] text-white text-sm hover:bg-yellow-400">{{ name }}</div>
         </NuxtLink>
     </div>
 </template>
 <script setup lang="ts">
-defineProps({
+const props=defineProps({
     name: {
         type: String,
         required: true,
@@ -16,4 +16,5 @@ defineProps({
         required: true,
     },
 });
+console.log(props.link);
 </script>
