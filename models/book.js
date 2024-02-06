@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            name: {
+            bookName: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
@@ -59,8 +59,12 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             overview: {
-                type: DataTypes.STRING,
+                type: DataTypes.TEXT,
                 allowNull: false,
+            },
+            amounts: {
+                type: DataTypes.INTEGER,
+                defaultValue: 1,
             },
         },
         {
