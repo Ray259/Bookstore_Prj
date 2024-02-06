@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const isScrolled = ref(false);
-let searchedItem = ref("");
+
 onMounted(() => {
     window.addEventListener("scroll", handleScroll);
 });
@@ -25,7 +25,17 @@ onMounted(async () => {
         console.error("Error fetching data:", error);
     }
 });
-async function search() {
+
+const props = defineProps({
+    current: String,
+});
+let inputValue = ref("");
+
+const search = async () => {
+    //emit("searchedItem", inputValue.value);
+    navigateTo('/search/' + inputValue.value)
+};
+//async function search() {
     // if (searchedItem.value != null) {
     //     let postData = { productname: searchedItem.value };
     //     try {
@@ -40,11 +50,11 @@ async function search() {
     //         console.error("POST request error:", error);
     //     }
     // }
-}
+//}
 </script>
 
 <template>
-    <div>
+    <div class="mb-[3rem]">
         <div class="flex flex-row items-center">
             <!-- Logo -->
             <div class="h-full object-cover">
@@ -61,7 +71,7 @@ async function search() {
                         class="border p-3 bg-white flex-1"
                         type="text"
                         placeholder="Search by title..."
-                        v-model="searchedItem"
+                        v-model="inputValue"
                     />
                     <button @click="search" class="text-white ml-[3rem] mr-[3rem]">
                         Search
@@ -103,10 +113,15 @@ async function search() {
             <div></div>
             <div class="flex">
                 <div v-for="g in genres" :key="g['prio']">
-                    <HeaderNavItem :link="'/genre/' + g['name']" :name="g['name']" />
+                    <NavItem
+                        :isHeaderItem="true"
+                        :link="'/' + g['name']"
+                        :name="g['name']"
+                        :current="$props.current"
+                    />
                 </div>
-                <HeaderNavItem link="/cart" name="Events" />
-                <HeaderNavItem link="/login" name="About Bookworm" />
+                <NavItem :isHeaderItem="true" link="/fiction" name="Events" />
+                <NavItem :isHeaderItem="true" link="/fiction" name="About Bookworm" />
             </div>
             <div></div>
         </div>

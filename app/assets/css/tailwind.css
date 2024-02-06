@@ -34,18 +34,17 @@
 
 /* custom-styles.css */
 
-.custom-bullet::before {
-    content: "";
-    font-size: 11px;
+.custom-bullet {    
+    font-size: 15px;
     display: inline-block!important;
     cursor: pointer;
     line-height: 15px;
-    color: #fff;
+    color: white;
     background-color: #f8ce02;
     margin-right: 5px;
-    padding-left: 2px;
+    padding: 1px;
     border-radius: 50%;
-    height: 13px;
-    width: 13px;
+    height: 15px;
+    width: 15px;
     vertical-align: middle;
 }

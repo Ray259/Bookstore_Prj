@@ -22,6 +22,7 @@ async function search() {
 </script>
 
 <template>
+    <Header></Header>
     <!-- Banner -->
     <div>
         <img
@@ -33,7 +34,7 @@ async function search() {
         <!-- Sidebar (Category) -->
         <div class="flex-initial w-32"></div>
         <div class="flex-initial w-72 min-w-64 pt-4 pl-2 hidden lg:block">
-            <Category />
+            <Categories />
         </div>
 
         <!-- Main Content -->
@@ -50,18 +51,12 @@ async function search() {
                 </form>
             </div> -->
 
-            <h1 class="mt-4 ml-13 pb-2 border-b text-2xl font-semibold text-red-600">NEW ARRIVALS</h1>
-            <div class="ml-13 pa-2 border-b mb-4 text-[#da251c]">
-                <span class="m-2 pr-4 border-r">All</span>
-                <span class="m-2 pr-4 border-r">FICTION</span>
-                <span class="m-2 pr-4 border-r">NON FICTION</span>
-                <span class="m-2 pr-4">CHILDREN'S BOOK</span>
-            </div>
+
             
             <!-- <ItemList :obj="data" /> -->
-            <ItemSlider />
-            <ItemSlider />
-            <ItemSlider />
+            <ItemSlider :displayName="'NEW ARRIVAL'" :category="'all'" />
+            <ItemSlider :displayName="'RARE & COLLECTIBLES'" :category="'all'" />
+
         </div>
     </div>
 </template>

@@ -22,9 +22,16 @@ onMounted(async () => {
 </script>
 
 <template>
+    <Header></Header>
     <div class="font-light text-sm">
-        <h1>Book Details {{ id }}</h1>
-        <h2>{{ data["name"] }}</h2>
+        <div class="mx-[8rem] my-[2rem]">            
+            <span><NavItem :name="'Home'" :link="'/'" /></span>            
+            <font-awesome-icon icon="fa fa-angle-right" class="mx-4" style="vertical-align: middle" />
+            <span><NavItem :isCategoryItem="true" :name="data['category']" :link="'/'+data['category']" /></span>            
+            <font-awesome-icon icon="fa fa-angle-right" class="mx-4" style="vertical-align: middle" />
+            <span class="text-xs">{{ data["name"] }}</span>
+            
+        </div>
         <div class="flex flex-row mt-4">
             <!-- Details -->
             <div class="flex flex-col ml-[8rem]">
@@ -69,15 +76,18 @@ onMounted(async () => {
                             </div>
                         </div>
                         <div class="my-2">
-                            <span class="font-bold custom-bullet">Publisher: </span
+                            <font-awesome-icon icon="fa fa-check" class="custom-bullet"/>
+                            <span class="font-bold">Publisher: </span
                             ><span>{{ data["publisher"] }}</span>
                         </div>
                         <div class="mb-2">
-                            <span class="font-bold custom-bullet">Release Date: </span
+                            <font-awesome-icon icon="fa fa-check" class="custom-bullet"/>
+                            <span class="font-bold">Release Date: </span
                             ><span>{{ data["release"] }}</span>
                         </div>
                         <div class="mb-6">
-                            <span class="font-bold custom-bullet">ISBN: </span
+                            <font-awesome-icon icon="fa fa-check" class="custom-bullet"/>
+                            <span class="font-bold">ISBN: </span
                             ><span>{{ data["isbn"] }}</span>
                         </div>
 
