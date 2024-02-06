@@ -1,0 +1,50 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
+
+@layer components {
+        .card {
+            @apply 
+                bg-white text-gray-700
+                w-40 h-80
+                shadow-lg rounded-md
+                border border-gray-200
+        }
+    }
+
+/* .title{
+    @apply overflow-hidden whitespace-nowrap overflow-ellipsis
+    font-semibold
+} */
+
+/* .button{
+    @apply bg-yellow-500 hover:bg-yellow-400
+    px-2 py-1 rounded-full text-white
+} */
+.background-image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: absolute; 
+    z-index: -1; 
+}
+
+/* custom-styles.css */
+
+.custom-bullet {    
+    font-size: 15px;
+    display: inline-block!important;
+    cursor: pointer;
+    line-height: 15px;
+    color: white;
+    background-color: #f8ce02;
+    margin-right: 5px;
+    padding: 1px;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    vertical-align: middle;
+}
