@@ -93,7 +93,16 @@ module.exports.query = async (req, res) => {
                 res.json("Book not found");
             }
         }
-
+        if (name) {
+            const books = await Book.findAll({
+                where: { name: { [Op.substring]: name } },
+            });
+            if(books){
+                res.json(books);
+            }else{
+                res.json("Books not found");
+            }
+        }
         if (category) {
             const books = await Book.findAll({ where: { category: category } });
             if (books) {
@@ -123,15 +132,6 @@ module.exports.query = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-
-module.exports.queryName = async (req,res) => {
-    const { name } = req.query;
-    
-        const books = await Book.findOne({
-            where: { bookName: name },
-        });
-    
-}
 
 // Genre
 module.exports.getAllGenres = async (req, res) => {

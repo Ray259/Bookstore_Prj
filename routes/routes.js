@@ -39,8 +39,6 @@ router.post("/books/update", bookController.update);
 
 router.get("/books/query", bookController.query);
 
-router.get("/books/queryname", bookController.queryName);
-
 //books genre
 
 router.get("/books/genres", bookController.getAllGenres);

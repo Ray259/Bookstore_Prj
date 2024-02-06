@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            bookName: {
+            name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
