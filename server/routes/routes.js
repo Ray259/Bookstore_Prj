@@ -2,9 +2,9 @@ const express = require("express");
 
 const router = express.Router();
 
-const passport = require("passport");
+const { authenticate } = require("../middleware/auth");
 
-const authController = require("../controller/authController")
+const authController = require("../controller/authController");
 
 const bookController = require("../controller/bookController");
 
@@ -13,19 +13,15 @@ const userController = require("../controller/userController");
 const cartController = require("../controller/cartController");
 
 //auth
-router.get("/auth/google", passport.authenticate("google", { scope: ["profile"], session: false }));
+//google passport
+router.get("/auth/google", authController.authenticateGoogle);
 
-router.get("/auth/google/callback", (req,res,next) =>{
-    passport.authenticate("google", (err,profile) => {
-        req.user = profile
-        next()
-    }) (req, res, next)
-});
+router.get("/auth/google/callback", authController.googleCallback);
 
+//conventional authentication
+router.post("/register", authController.register);
 
-router.post("/register", authController.register)
-
-router.post("/login", authController.login)
+router.post("/login", authController.login);
 
 //books
 
@@ -44,7 +40,6 @@ router.get("/books/query", bookController.query);
 router.get("/books/genres", bookController.getAllGenres);
 
 router.get("/books/categories", bookController.getAllCategories);
-
 
 //users
 

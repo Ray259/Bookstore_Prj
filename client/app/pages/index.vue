@@ -39,19 +39,6 @@ async function search() {
 
         <!-- Main Content -->
         <div class="flex-col flex-1 ml-4">
-            <!-- <div class="flex w-full border-b mb-4">
-                <form @submit.prevent="search" class="flex w-full">
-                    <input
-                        class="border flex-1"
-                        type="text"
-                        placeholder="Find a product..."
-                        v-model="searchedItem"
-                    />
-                    <button @click="search" class="ml-2">Search</button>
-                </form>
-            </div> -->
-
-
             
             <!-- <ItemList :obj="data" /> -->
             <ItemSlider :displayName="'NEW ARRIVAL'" :category="'all'" />

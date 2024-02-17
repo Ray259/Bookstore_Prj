@@ -31,26 +31,9 @@ const props = defineProps({
 });
 let inputValue = ref("");
 
-const search = async () => {
-    //emit("searchedItem", inputValue.value);
+const search = async () => {    
     navigateTo('/search/' + inputValue.value)
 };
-//async function search() {
-    // if (searchedItem.value != null) {
-    //     let postData = { productname: searchedItem.value };
-    //     try {
-    //         const response = await axios.post(
-    //             "http://localhost:8080/menu/api/searchProductName",
-    //             postData
-    //         );
-    //         data.value = response.data;
-    //         console.log(response.data);
-    //         console.log("POST request successful:");
-    //     } catch (error) {
-    //         console.error("POST request error:", error);
-    //     }
-    // }
-//}
 </script>
 
 <template>
