@@ -63,3 +63,8 @@ const sendToken = (userid, res) => {
     });
     res.cookie("jwt", token, { httpOnly: true, maxAge: expiration * 1000 });
 };
+
+module.exports.logout = (req, res) => {
+    res.cookie("jwt", "", { maxAge: 1 });
+    res.redirect("/");
+};

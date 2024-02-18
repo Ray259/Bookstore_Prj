@@ -24,14 +24,28 @@ onMounted(async () => {
 <template>
     <Header></Header>
     <div class="font-light text-sm">
-        <div class="mx-[8rem] my-[2rem]">            
-            <span><NavItem :name="'Home'" :link="'/'" /></span>            
-            <font-awesome-icon icon="fa fa-angle-right" class="mx-4" style="vertical-align: middle" />
-            <span><NavItem :isCategoryItem="true" :name="data['category']" :link="'/'+data['category']" /></span>            
-            <font-awesome-icon icon="fa fa-angle-right" class="mx-4" style="vertical-align: middle" />
+        <!-- Home > Category > Name -->
+        <div class="mx-[8rem] my-[2rem]">
+            <span><NavItem :name="'Home'" :link="'/'" /></span>
+            <font-awesome-icon
+                icon="fa fa-angle-right"
+                class="mx-4"
+                style="vertical-align: middle"
+            />
+            <span
+                ><NavItem
+                    :isCategoryItem="true"
+                    :name="data['category']"
+                    :link="'/' + data['category']"
+            /></span>
+            <font-awesome-icon
+                icon="fa fa-angle-right"
+                class="mx-4"
+                style="vertical-align: middle"
+            />
             <span class="text-xs">{{ data["name"] }}</span>
-            
         </div>
+        <!-- Main -->
         <div class="flex flex-row mt-4">
             <!-- Details -->
             <div class="flex flex-col ml-[8rem]">
@@ -76,23 +90,23 @@ onMounted(async () => {
                             </div>
                         </div>
                         <div class="my-2">
-                            <font-awesome-icon icon="fa fa-check" class="custom-bullet"/>
+                            <font-awesome-icon icon="fa fa-check" class="custom-bullet" />
                             <span class="font-bold">Publisher: </span
                             ><span>{{ data["publisher"] }}</span>
                         </div>
                         <div class="mb-2">
-                            <font-awesome-icon icon="fa fa-check" class="custom-bullet"/>
+                            <font-awesome-icon icon="fa fa-check" class="custom-bullet" />
                             <span class="font-bold">Release Date: </span
                             ><span>{{ data["release"] }}</span>
                         </div>
                         <div class="mb-6">
-                            <font-awesome-icon icon="fa fa-check" class="custom-bullet"/>
+                            <font-awesome-icon icon="fa fa-check" class="custom-bullet" />
                             <span class="font-bold">ISBN: </span
                             ><span>{{ data["isbn"] }}</span>
                         </div>
 
                         <!-- Format and Condition -->
-                        <div class="flex justify-start">
+                        <div class="flex justify-start mb-5">
                             <div class="flex flex-col mr-2">
                                 <div>Format</div>
                                 <div
@@ -110,6 +124,16 @@ onMounted(async () => {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Buy/Add to Cart -->
+                        <div class="text-xs font-bold mb-2">QUANTITY</div>
+                        <span class="text-white bg-red-600 text-lg mx-2 px-2 py-2 rounded"
+                            >Buy Now
+                        </span>
+                        <span
+                            class="text-white bg-yellow-400 text-lg font-bold px-4 py-2 rounded"
+                            >Add to cart
+                        </span>
                     </div>
                 </div>
 
@@ -136,7 +160,8 @@ onMounted(async () => {
                         <img
                             class="h-8 m-4 ml-6"
                             :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/i-prod-cart.png?1702443694490'"
-                        /><span class="flex items-center">Fast Shipping: Same day Delivery</span
+                        /><span class="flex items-center"
+                            >Fast Shipping: Same day Delivery</span
                         >
                     </div>
                     <div class="flex justify-start border-b border-x hover:bg-gray-200">
@@ -150,18 +175,25 @@ onMounted(async () => {
                             class="h-8 m-4 ml-6"
                             :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/settings-tools.png?1702443694490'"
                         /><span class="flex items-center my-4">
-                            Repay 1/3 the purchase price of books returns in good condition</span>
+                            Repay 1/3 the purchase price of books returns in good
+                            condition</span
+                        >
                     </div>
                     <div class="flex justify-start border-b border-x hover:bg-gray-200">
                         <img
                             class="h-8 m-4 ml-6"
                             :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/tag.png?1702443694490'"
                         />
-                        <span class="flex items-center my-4">Free Shipping for orders >500k in Hanoi, or >800k outside Hanoi</span>
+                        <span class="flex items-center my-4"
+                            >Free Shipping for orders >500k in Hanoi, or >800k outside
+                            Hanoi</span
+                        >
                     </div>
                     <!-- Contact -->
                     <div class="font-bold text-lg border-b my-4">CAN'T FIND US IN STOCK?</div>
-                    <div class="font-light text-white text-xs bg-yellow-400 rounded py-3 flex justify-center hover:bg-red-600">
+                    <div
+                        class="font-light text-white text-xs bg-yellow-400 rounded py-3 flex justify-center hover:bg-red-600"
+                    >
                         Ordering Books
                     </div>
                     <div class="font-bold text-lg border-b my-4">FIND US ON FACEBOOK</div>
