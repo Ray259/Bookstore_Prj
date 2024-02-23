@@ -51,7 +51,7 @@ module.exports.googleCallback = (req, res, next) => {
         }
         req.user = profile;
         sendToken(profile.id, res);
-        console.log(req.user);
+        //console.log(req.user);
         res.redirect("http://localhost:3000");
     })(req, res, next);
 };
@@ -61,6 +61,7 @@ const sendToken = (userid, res) => {
     const token = jwt.sign({ id: userid }, "secret", {
         expiresIn: expiration,
     });
+    //console.log(jwt.verify(token, "secret"))
     res.cookie("jwt", token, { httpOnly: true, maxAge: expiration * 1000 });
 };
 

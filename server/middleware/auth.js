@@ -7,6 +7,7 @@ module.exports.authenticate = (req, res, next) => {
             res.redirect(process.env.CLIENT_URL + "/login");
         } else {
             console.log(decodedToken);
+            req.user = decodedToken;
             next();
         }
     });

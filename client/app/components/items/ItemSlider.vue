@@ -9,7 +9,6 @@ const props = defineProps({
     category: String,
 });
 
-
 let obj = ref([]);
 onMounted(async () => {
     try {
@@ -27,12 +26,12 @@ onMounted(async () => {
 <!-- Component to use on main page -->
 
 <template>
-    <NuxtLink :to="'/genre/'+category">
-        <h1 class="mt-4 ml-13 pb-2 border-b text-2xl font-semibold text-red-600">
+    <NuxtLink :to="'/genre/' + category">
+        <span class="mt-4 ml-13 pb-2 text-2xl font-semibold text-red-600">
             {{ displayName }}
-        </h1>
+        </span>
     </NuxtLink>
-    <div class="ml-13 pa-2 border-b mb-4 text-[#da251c]">
+    <div class="ml-13 pa-2 border-b mb-4 text-[#da251c] border-t">
         <span class="m-2 pr-4 border-r">All</span>
         <span class="m-2 pr-4 border-r">FICTION</span>
         <span class="m-2 pr-4 border-r">NON FICTION</span>

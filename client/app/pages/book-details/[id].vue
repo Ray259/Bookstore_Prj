@@ -127,6 +127,7 @@ onMounted(async () => {
 
                         <!-- Buy/Add to Cart -->
                         <div class="text-xs font-bold mb-2">QUANTITY</div>
+                        <QuantityButton></QuantityButton>
                         <span class="text-white bg-red-600 text-lg mx-2 px-2 py-2 rounded"
                             >Buy Now
                         </span>
@@ -143,10 +144,25 @@ onMounted(async () => {
                     <pre class="border-t mt-5 font-nunito whitespace-pre-wrap text-justify">{{
                         data["overview"]
                     }}</pre>
+                    <div class="mb-[5rem] mt-[1rem]">
+                        <span class="font-bold">Author: </span
+                        ><span>{{ data["author"] }}</span>
+                    </div>
+                    <div class="mb-[1rem]">
+                        <span class="font-bold">Publisher: </span
+                        ><span>{{ data["publisher"] }}</span>
+                    </div>
+                    <div class="mb-[1rem]">
+                        <span class="font-bold">Release Date: </span
+                        ><span>{{ data["release"] }}</span>
+                    </div>
+                    <div>
+                        <span class="font-bold">ISBN: </span><span>{{ data["isbn"] }}</span>
+                    </div>
                 </div>
             </div>
             <!-- Right-side -->
-            <div class="flex-col flex-1 hidden-lg hidden-sm bg-slate-600"></div>
+            <div class="flex-col flex-1 hidden-lg hidden-sm"></div>
             <div class="flex-row flex-initial w-[26rem] hidden-sm hidden-md">
                 <div class="flex-col ml-[3rem] mr-[7.5rem] text-black">
                     <!-- Service Description boxes -->

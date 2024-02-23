@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const jwt = require("jsonwebtoken");
 const sequelize = require("sequelize");
 
 module.exports.getAll = async (req, res) => {
@@ -6,8 +7,14 @@ module.exports.getAll = async (req, res) => {
     res.json(users);
 };
 
+module.exports.getPersonal = async (req, res) => {
+    const userId = req.user.id
+    const t = await User.findOne({where: {id: userId}});
+    res.json(t);
+};
+
 module.exports.create = async (req, res) => {
-    const { email, password, name, phone } = req.body;    
+    const { email, password, name, phone } = req.body;
     const t = await User.findOne({ where: { email: email } });
     if (t) {
         return res.status(400).send("The user with this email already exists");
@@ -33,7 +40,6 @@ module.exports.delete = async (req, res) => {
     }
 };
 
-
 module.exports.update = async (req, res) => {
     const id = req.params.id;
-}
+};

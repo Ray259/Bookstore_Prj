@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import axios from "axios";
 
 const isScrolled = ref(false);
@@ -31,8 +31,8 @@ const props = defineProps({
 });
 let inputValue = ref("");
 
-const search = async () => {    
-    navigateTo('/search/' + inputValue.value)
+const search = async () => {
+    navigateTo("/search/" + inputValue.value);
 };
 </script>
 
@@ -84,7 +84,7 @@ const search = async () => {
                         class="h-8 mb-1.5 mx-auto"
                         :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/acc.png?1702443694490'"
                     />
-                    <span class="mx-1 text-xs">User</span>
+                    <span class="mx-1 text-xs">{{ user }}</span>
                 </div>
             </div>
         </div>

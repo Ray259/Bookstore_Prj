@@ -44,6 +44,7 @@ router.get("/books/genres", bookController.getAllGenres);
 router.get("/books/categories", bookController.getAllCategories);
 
 //users
+router.get("/user-profile", authenticate, userController.getPersonal);
 
 router.get("/users", userController.getAll);
 
@@ -52,7 +53,13 @@ router.post("/users/create", userController.create);
 router.post("/users/delete/:id", userController.delete);
 
 //cart
+router.get("/my-cart", authenticate, cartController.view);
 
-router.get("/cart/:id", cartController.view);
+router.post("/add-to-cart", authenticate, cartController.add);
+
+
+
+//order
+
 
 module.exports = router;
