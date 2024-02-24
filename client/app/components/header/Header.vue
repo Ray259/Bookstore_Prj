@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import axios from "axios";
 
 const isScrolled = ref(false);
@@ -15,12 +15,20 @@ function handleScroll() {
     isScrolled.value = window.scrollY > 2;
 }
 let genres = ref([]);
-
+let user = ref("User");
 onMounted(async () => {
     try {
         const response = await axios.get("http://localhost:8080/api/books/genres");
         genres.value = await response.data;
-        await console.log(genres.value);
+        //await console.log(genres.value);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+    try {
+        const response = await axios.get("http://localhost:8080/api/user-profile", {
+            withCredentials: true,
+        });
+        user.value = await response.data.name;
     } catch (error) {
         console.error("Error fetching data:", error);
     }
@@ -40,7 +48,7 @@ const search = async () => {
     <div class="mb-[3rem]">
         <div class="flex flex-row items-center">
             <!-- Logo -->
-            <div class="h-full object-cover">
+            <div class="flex flex-initial w-11/12 object-cover">
                 <NuxtLink to="/">
                     <img
                         :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/logo.png?1702443694490'"
@@ -51,40 +59,44 @@ const search = async () => {
             <div class="flex ml-4 w-full">
                 <form @submit.prevent="search" class="flex bg-red-600 rounded w-full">
                     <input
-                        class="border p-3 bg-white flex-1"
+                        class="border p-3 bg-white text-sm flex-1"
                         type="text"
                         placeholder="Search by title..."
                         v-model="inputValue"
                     />
-                    <button @click="search" class="text-white ml-[3rem] mr-[3rem]">
+                    <button @click="search" class="text-white text-sm ml-[3rem] mr-[3rem]">
                         Search
                     </button>
                 </form>
             </div>
             <!-- Icon -->
             <div
-                class="flex flex-row w-2/3 col-lg-3 col-md-3 col-sm-4 hidden-xs hidden-sm hidden-md"
+                class="flex flex-row w-3/4 col-lg-3 col-md-3 col-sm-4 hidden-xs hidden-sm hidden-md"
             >
                 <div class="m-4 text-sm">
                     <img
-                        class="h-8 mb-1.5 mx-auto"
+                        class="h-7 mb-1.5 mx-auto"
                         :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/heart.png?1702443694490'"
                     />
                     <span class="mx-auto text-xs">Wish List</span>
                 </div>
                 <div class="mr-4 my-auto text-sm">
                     <img
-                        class="h-8 mb-1.5 mx-auto"
+                        class="h-7 mb-1.5 mx-auto"
                         :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/giohang1.png?1702443694490'"
                     />
-                    <span class="mx-2 text-xs">Cart</span>
+                    <span class="mx-2 text-xs"
+                        ><NavItem :link="'/account/cart'" :name="'Cart'"></NavItem
+                    ></span>
                 </div>
                 <div class="mr-4 my-auto text-sm">
                     <img
-                        class="h-8 mb-1.5 mx-auto"
+                        class="h-7 mb-1.5 mx-auto"
                         :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/acc.png?1702443694490'"
                     />
-                    <span class="mx-1 text-xs">{{ user }}</span>
+                    <span class="mx-1 text-xs"
+                        ><NavItem :link="'/account'" :name="user">{{ user }}</NavItem></span
+                    >
                 </div>
             </div>
         </div>

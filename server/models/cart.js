@@ -12,10 +12,14 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     Cart.init(
-        {            
+        {
             quantity: {
                 type: DataTypes.INTEGER,
-                defaultValue: 1
+                defaultValue: 1,
+            },
+            status: {
+                type: DataTypes.STRING,
+                defaultValue: "pending",
             },
         },
         {

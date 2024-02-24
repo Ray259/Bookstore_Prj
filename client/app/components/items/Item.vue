@@ -45,6 +45,7 @@ const goToBookDetails = () => {
     <div class="bg-white text-gray-700 w-[10rem] h-[20rem] border border-gray-200 p-1">
         <div
             class="h-[12rem] w-full flex justify-center items-center cursor-pointer"
+            @click="goToBookDetails"
             @mouseover="startRotation"
             @mouseout="stopRotation"
         >

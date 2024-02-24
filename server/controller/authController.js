@@ -3,6 +3,7 @@ const { User } = require("../models");
 const sequelize = require("sequelize");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
+const secretkey = process.env.SECRET_KEY || "secret"
 
 module.exports.register = async (req, res) => {
     const { email, password, name, phone } = req.body;
@@ -52,13 +53,13 @@ module.exports.googleCallback = (req, res, next) => {
         req.user = profile;
         sendToken(profile.id, res);
         //console.log(req.user);
-        res.redirect("http://localhost:3000");
+        res.redirect(process.env.CLIENT_URL);
     })(req, res, next);
 };
 
 const sendToken = (userid, res) => {
-    const expiration = 3600;
-    const token = jwt.sign({ id: userid }, "secret", {
+    const expiration = 24 * 60 * 60;
+    const token = jwt.sign({ id: userid }, secretkey , {
         expiresIn: expiration,
     });
     //console.log(jwt.verify(token, "secret"))
@@ -67,5 +68,5 @@ const sendToken = (userid, res) => {
 
 module.exports.logout = (req, res) => {
     res.cookie("jwt", "", { maxAge: 1 });
-    res.redirect("/");
+    res.redirect(process.env.CLIENT_URL);
 };

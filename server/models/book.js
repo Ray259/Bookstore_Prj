@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             Book.belongsToMany(models.User, {
                 through: models.Cart,
                 foreignKey: "fk_isbn",
+                otherKey: "fk_userId",
             });
         }
     }
