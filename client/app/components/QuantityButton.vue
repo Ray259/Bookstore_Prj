@@ -8,6 +8,8 @@ const props = defineProps({
 
 const quantity = ref(props.defaultQuantity);
 
+defineExpose({ quantity });
+
 const subtract = () => {
     if (quantity.value > 1) {
         quantity.value--;
@@ -27,7 +29,7 @@ const add = () => {
         >
             -
         </button>
-        <span class="p-2 border mx-2 px-10">{{ quantity }}</span>
+        <input v-model="quantity" class="p-2 border mx-2 text-center w-16" />
         <button
             @click="add()"
             class="hover:bg-red-600 hover:text-white border bg-slate-100 text-slate-500 font-bold p-2"

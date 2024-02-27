@@ -27,7 +27,7 @@ onMounted(async () => {
 
 <template>
     <NuxtLink :to="'/genre/' + category">
-        <span class="mt-4 ml-13 pb-2 text-2xl font-semibold text-red-600">
+        <span class="mt-4 ml-13 pb-2 text-2xl font-semibold hover:text-black text-red-600">
             {{ displayName }}
         </span>
     </NuxtLink>

@@ -28,8 +28,10 @@ onMounted(async () => {
                 </tr>
             </thead>
             <tbody class="border-b">
-                <tr v-for="c in cart">
-                    <td class="m-10"><img class="w-16" :src="c.bookInfo.image" /></td>
+                <tr v-for="c in cart" class="border-b">
+                    <td class="m-10">
+                        <img class="w-20 m-3 border" :src="c.bookInfo.image" />
+                    </td>
                     <td class="text-left">{{ c.bookInfo.name }}</td>
                     <td class="text-left text-xs text-red-600">
                         {{ c.bookInfo.price.toLocaleString("de-DE") }}₫
@@ -40,6 +42,12 @@ onMounted(async () => {
                     <td class="text-left">{{ c.bookInfo.price }}</td>
                 </tr>
             </tbody>
+            <tfoot>
+                <div class="flex flex-row justify-between w-full bg-slate-100">
+                    <div>Footer</div>
+                    <div>Footer</div>
+                </div>
+            </tfoot>
         </table>
         <div v-else>No products in your cart. Come back shop to buy.</div>
     </div>

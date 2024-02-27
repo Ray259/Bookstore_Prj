@@ -5,6 +5,7 @@ import { ref, onMounted } from "vue";
 const { id } = useRoute().params;
 let data = ref([]);
 let formattedPrice = ref(null);
+let quantity = ref(null);
 
 onMounted(async () => {
     try {
@@ -19,6 +20,24 @@ onMounted(async () => {
         console.error(error);
     }
 });
+
+const addToCart = async () => {
+    try {
+        await axios.post(
+            "http://localhost:8080/api/add-to-cart",
+            {
+                isbn: id,
+                quantity: quantity.value.quantity,
+            },
+            { withCredentials: true }
+        );
+        await navigateTo("/account/cart");
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const buy = () => {};
 </script>
 
 <template>
@@ -127,14 +146,20 @@ onMounted(async () => {
 
                         <!-- Buy/Add to Cart -->
                         <div class="text-xs font-bold mb-2">QUANTITY</div>
-                        <QuantityButton></QuantityButton>
-                        <span class="text-white bg-red-600 text-lg mx-2 px-2 py-2 rounded"
-                            >Buy Now
-                        </span>
-                        <span
-                            class="text-white bg-yellow-400 text-lg font-bold px-4 py-2 rounded"
-                            >Add to cart
-                        </span>
+                        <div class="flex flex-row">
+                            <QuantityButton ref="quantity" @click="buy()"></QuantityButton>
+                            <button
+                                class="text-white bg-red-600 text-lg mx-2 px-2 py-2 rounded"
+                            >
+                                Buy Now
+                            </button>
+                            <button
+                                class="text-white bg-yellow-400 text-lg font-bold px-4 py-2 rounded"
+                                @click="addToCart()"
+                            >
+                                Add to cart
+                            </button>
+                        </div>
                     </div>
                 </div>
 

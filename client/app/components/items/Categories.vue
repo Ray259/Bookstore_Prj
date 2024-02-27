@@ -18,10 +18,14 @@ onMounted(async () => {
 
 <template>
     <div class="w-full flex flex-col shadow border">
-        <div class="font-semibold p-[0.5rem] text-l bg-gray-200">CATEGORIES</div>
+        <div class="font-bold p-[0.5rem] text-lg text-center border-b">CATEGORIES</div>
         <div v-for="c in categories" :key="c['id']">
-            <div class="px-[1rem] text-xs">
-                <NavItem :isCategoryItem="true" :name="c['category']" :link="'/'+c['category']" />
+            <div class="px-[1rem] text-xs mt-1">
+                <NavItem
+                    :isCategoryItem="true"
+                    :name="c['category']"
+                    :link="'/' + c['category']"
+                />
             </div>
         </div>
     </div>
