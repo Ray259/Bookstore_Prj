@@ -97,9 +97,9 @@ module.exports.query = async (req, res) => {
             const books = await Book.findAll({
                 where: { name: { [Op.substring]: name } },
             });
-            if(books){
+            if (books) {
                 res.json(books);
-            }else{
+            } else {
                 res.json("Books not found");
             }
         }
@@ -117,7 +117,7 @@ module.exports.query = async (req, res) => {
                 res.json(books);
             } else {
                 const books = await db.sequelize.query(
-                    `SELECT * FROM Books b
+                    `SELECT b.* FROM Books b
                 INNER JOIN Genres g ON b.category = g.category
                 WHERE g.name = :genre`,
                     {

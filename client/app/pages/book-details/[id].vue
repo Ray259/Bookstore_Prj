@@ -4,8 +4,11 @@ import { ref, onMounted } from "vue";
 
 const { id } = useRoute().params;
 let data = ref([]);
+let formattedFormat = ref(null);
+let formattedCondition = ref(null);
 let formattedPrice = ref(null);
-let quantity = ref(null);
+
+let quantity = ref();
 
 onMounted(async () => {
     try {
@@ -14,6 +17,8 @@ onMounted(async () => {
         });
         data.value = await response.data;
         formattedPrice = data.value["price"].toLocaleString("de-DE");
+        formattedCondition = data.value["condition"].toUpperCase();
+        formattedFormat = data.value["format"].toUpperCase();
         console.log(formattedPrice);
         await console.log(data.value);
     } catch (error) {
@@ -131,7 +136,7 @@ const buy = () => {};
                                 <div
                                     class="border-[2px] border-red-700 font-bold text-xs p-2 mt-2"
                                 >
-                                    {{ data["format"] }}
+                                    {{ formattedFormat }}
                                 </div>
                             </div>
                             <div class="flex flex-col items-start">
@@ -139,7 +144,7 @@ const buy = () => {};
                                 <div
                                     class="border-[2px] border-red-700 font-bold text-xs p-2 mt-2"
                                 >
-                                    {{ data["condition"] }}
+                                    {{ formattedCondition }}
                                 </div>
                             </div>
                         </div>
@@ -147,7 +152,10 @@ const buy = () => {};
                         <!-- Buy/Add to Cart -->
                         <div class="text-xs font-bold mb-2">QUANTITY</div>
                         <div class="flex flex-row">
-                            <QuantityButton ref="quantity" @click="buy()"></QuantityButton>
+                            <QuantityButton
+                                @quantity="(q) => (quantity = q)"
+                                @click="buy()"
+                            ></QuantityButton>
                             <button
                                 class="text-white bg-red-600 text-lg mx-2 px-2 py-2 rounded"
                             >

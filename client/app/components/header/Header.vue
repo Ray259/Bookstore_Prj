@@ -59,7 +59,7 @@ const search = async () => {
             <div class="flex ml-4 w-full">
                 <form @submit.prevent="search" class="flex bg-red-600 rounded w-full">
                     <input
-                        class="border p-3 bg-white text-sm flex-1"
+                        class="border p-3 bg-white text-sm flex-1 focus:outline-none"
                         type="text"
                         placeholder="Search by title..."
                         v-model="inputValue"
@@ -95,7 +95,9 @@ const search = async () => {
                         :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/acc.png?1702443694490'"
                     />
                     <span class="mx-1 text-xs"
-                        ><NavItem :link="'/account'" :name="user">{{ user }}</NavItem></span
+                        ><NavItem :link="'/account/login'" :name="user">{{
+                            user
+                        }}</NavItem></span
                     >
                 </div>
             </div>

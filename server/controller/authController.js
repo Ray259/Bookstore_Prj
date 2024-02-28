@@ -34,6 +34,7 @@ module.exports.login = async (req, res) => {
         return res.status(400).send("Invalid email or password.");
     } else {
         sendToken(user.id, res);
+        // res.redirect(process.env.CLIENT_URL);
     }
 };
 
@@ -68,5 +69,5 @@ const sendToken = (userid, res) => {
 
 module.exports.logout = (req, res) => {
     res.cookie("jwt", "", { maxAge: 1 });
-    res.redirect(process.env.CLIENT_URL);
+    // res.redirect(process.env.CLIENT_URL);
 };

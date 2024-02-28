@@ -7,16 +7,21 @@ const props = defineProps({
 });
 
 const quantity = ref(props.defaultQuantity);
+let changes = ref(0);
 
 defineExpose({ quantity });
+const emit = defineEmits(["quantity"]);
+emit("quantity", { quantity, changes });
 
 const subtract = () => {
     if (quantity.value > 1) {
+        changes.value--;
         quantity.value--;
     }
 };
 
 const add = () => {
+    changes.value++;
     quantity.value++;
 };
 </script>

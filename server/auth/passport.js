@@ -17,7 +17,7 @@ passport.use(
                 defaults: {
                     id: profile.id,
                     name: profile.displayName,
-                    email: profile.email,
+                    email: profile.emails[0].value,
                 },
             });
             return cb(null, profile);

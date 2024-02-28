@@ -57,9 +57,10 @@ router.get("/my-cart", authenticate, cartController.view);
 
 router.post("/add-to-cart", authenticate, cartController.add);
 
+router.post("/update-cart", authenticate, cartController.update);
 
+router.post("/delete-from-cart", authenticate, cartController.delete);
 
 //order
-
 
 module.exports = router;

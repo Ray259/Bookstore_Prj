@@ -20,25 +20,46 @@ module.exports.view = async (req, res) => {
 };
 
 module.exports.add = async (req, res) => {
-
-        const { isbn, quantity } = req.body;
-        const userID = req.user.id;
-        const t = await Cart.findOne({ where: { fk_userId: userID, fk_isbn: isbn } });
-        if (t) {
-            await Cart.increment(
-                { quantity: quantity },
-                { where: { fk_userId: userID, fk_isbn: isbn } }
-            );
-        } else {
-            await Cart.create({
-                fk_userId: userID,
-                fk_isbn: isbn,
-                quantity: quantity,
-            });
+        try {
+            const { isbn, quantity } = req.body;
+            const userID = req.user.id;
+            const t = await Cart.findOne({ where: { fk_userId: userID, fk_isbn: isbn } });
+            if (t) {
+                await Cart.increment(
+                    { quantity: quantity },
+                    { where: { fk_userId: userID, fk_isbn: isbn } }
+                );
+            } else {
+                await Cart.create({
+                    fk_userId: userID,
+                    fk_isbn: isbn,
+                    quantity: quantity,
+                });
+            }
+            res.sendStatus(200);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
         }
-        res.sendStatus(200);
-
 };
+
+module.exports.update = async (req, res) => {
+    try {
+        const { isbn, quantity } = req.body;
+        const userId = req.user.id;
+        const t = await Cart.findOne({ where: { fk_userId: userId, fk_isbn: isbn } });
+        if (t) {
+            await Cart.update(
+                { quantity: quantity },
+                { where: { fk_userId: userId, fk_isbn: isbn } }
+            );
+            res.json("item updated");
+        } else {
+            res.json("item not found");
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 
 module.exports.delete = async (req, res) => {
     try {
