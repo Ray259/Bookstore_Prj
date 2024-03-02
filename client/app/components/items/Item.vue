@@ -65,6 +65,6 @@ const goToBookDetails = () => {
             {{ name }}
         </div>
         <span class="text-xs text-gray-400">{{ author }}</span>
-        <span class="text-xl text-red-600 block">{{ price }}₫</span>
+        <span class="text-xl text-red-600 block">{{ price.toLocaleString("de-DE") }}₫</span>
     </div>
 </template>
