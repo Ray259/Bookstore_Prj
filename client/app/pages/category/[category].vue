@@ -1,21 +1,21 @@
 <script setup>
-import axios from "axios";
-import { ref, onMounted } from "vue";
+const { category } = useRoute().params;
 
-const {category} = useRoute().params;
-
-onMounted(async() => {
-    try {
-        const response = await axios.get("http://localhost:8080/api/books/query", {params: {category: categories}});
-        data.value = response.data;
-        console.log(data.value);
-    } catch (error) {
-        console.error("GET request error:", error);
-    }
-});
+const filter = ref(null);
 </script>
 
 <template>
-    <Header></Header>
-    <ItemList :category="category"/>
+    <div>
+        <Header :current="genre"></Header>
+        <Container>
+            <template #left>
+                <Filter @filter="(f) => (filter = f)"></Filter>
+            </template>
+            <div class="flex flex-col">
+                <div class="font-bold text-lg">{{ category.toUpperCase() }}</div>
+                <div>genre description</div>
+                <ItemList :filter="filter" :category="category" />
+            </div>
+        </Container>
+    </div>
 </template>

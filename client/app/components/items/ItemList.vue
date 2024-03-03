@@ -1,12 +1,9 @@
 <script setup>
 import axios from "axios";
-import { ref, onMounted } from "vue";
-let ProductID = 0;
+import { ref, onMounted, computed, defineProps } from "vue";
 
 const props = defineProps({
-    api: {
-        type: String,
-    },
+    api: String,
     genre: String,
     category: String,
     name: String,
@@ -14,17 +11,19 @@ const props = defineProps({
 });
 
 const filteredBooks = computed(() => {
-    return props.filter.format.length === 0 && props.filter.condition.length === 0
+    return (props.filter?.filter.format ?? []).length === 0 &&
+        (props.filter?.filter.condition ?? []).length === 0
         ? books.value
         : books.value.filter((b) => {
               return (
-                  props.filter.format.some((f) => f === b.format) ||
-                  props.filter.condition.some((c) => c === b.condition)
+                  (props.filter?.filter.format ?? []).some((f) => f === b.format) ||
+                  (props.filter?.filter.condition ?? []).some((c) => c === b.condition)
               );
           });
 });
 
 let books = ref([]);
+let numberOfBooks = ref(0);
 onMounted(async () => {
     try {
         const response = await axios.get("http://localhost:8080/api/books/query", {
@@ -40,8 +39,8 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div>
-        <span class="flex justify-center"
+    <div class="flex flex-col">
+        <span class="flex justify-center m-6"
             ><ProductsNumber :number="filteredBooks.length"></ProductsNumber
         ></span>
         <ul class="flex flex-wrap">
