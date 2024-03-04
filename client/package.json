@@ -27,6 +27,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@mdi/font": "^7.4.47",
+    "@nuxt/ui": "^2.14.1",
     "axios": "^1.6.0",
     "jsonwebtoken": "^9.0.2",
     "nuxt-helm": "^0.0.2"

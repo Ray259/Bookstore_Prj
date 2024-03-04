@@ -4,6 +4,11 @@ import { ref, defineEmits } from "vue";
 const filter = ref({
     format: [],
     condition: [],
+    author: [],
+});
+
+const props = defineProps({
+    books: Object,
 });
 
 const emit = defineEmits(["filter"]);
@@ -27,6 +32,16 @@ const updateCondition = (event) => {
         filter.value.condition.splice(index, 1);
     }
 };
+
+const updateAuthor = (event) => {
+    const value = event.target.value;
+    const index = filter.value.author.indexOf(value);
+    if (index === -1) {
+        filter.value.author.push(value);
+    } else {
+        filter.value.author.splice(index, 1);
+    }
+};
 </script>
 
 <template>
@@ -45,7 +60,7 @@ const updateCondition = (event) => {
             Paperback
         </label>
 
-        <span>CONDITION</span>
+        <span class="mt-4">CONDITION</span>
         <label class="font-light">
             <input type="checkbox" value="Acceptable" @change="updateCondition" />
             Acceptable
@@ -66,8 +81,22 @@ const updateCondition = (event) => {
             <input type="checkbox" value="Very Good" @change="updateCondition" />
             Very Good
         </label>
-        <span>AUTHOR</span>
-        <span>SUB-CATEGORY</span>
+        <span class="mt-4">AUTHOR</span>
+        <!-- <select class="border font-light text-sm p-2">
+            <option
+                v-for="b in books"
+                :value="b.author"
+                @change="updateAuthor"
+                class="form-control"
+            >
+                {{ b.author }}
+            </option>
+        </select> -->
+        <label class="font-light" v-for="b in books">
+            <input type="checkbox" :value="b.author" @change="updateAuthor" />
+            {{ b.author }}
+        </label>
+        <span class="mt-4">SUB-CATEGORY</span>
         <SubscribeBlock></SubscribeBlock>
     </div>
 </template>

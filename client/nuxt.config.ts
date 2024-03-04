@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     srcDir: path.resolve(__dirname, "app"),
     devtools: { enabled: true },
     modules: [
+        "@nuxt/ui",
         "@nuxtjs/tailwindcss",
         (_options, nuxt) => {
             nuxt.hooks.hook("vite:extendConfig", (config) => {
