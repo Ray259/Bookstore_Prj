@@ -133,7 +133,7 @@ const buy = () => {};
                         <div class="flex flex-col mr-2">
                             <div>Format</div>
                             <div
-                                class="border-[2px] border-red-700 font-bold text-xs p-2 mt-2"
+                                class="border-[2px] border-red-600 hover:text-white hover:bg-red-600 font-bold text-xs p-2 mt-2"
                             >
                                 {{ formattedFormat }}
                             </div>
@@ -141,7 +141,7 @@ const buy = () => {};
                         <div class="flex flex-col items-start">
                             <div>Condition</div>
                             <div
-                                class="border-[2px] border-red-700 font-bold text-xs p-2 mt-2"
+                                class="border-[2px] border-red-600 hover:text-white hover:bg-red-600 font-bold text-xs p-2 mt-2"
                             >
                                 {{ formattedCondition }}
                             </div>

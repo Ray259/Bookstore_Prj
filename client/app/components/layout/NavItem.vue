@@ -1,6 +1,6 @@
 <template>
     <span v-if="isHeaderItem">
-        <NuxtLink :to="'/genre' + link">
+        <NuxtLink :to="link">
             <span
                 v-if="current != name"
                 class="flex p-4 h-[3rem] text-white text-sm hover:bg-yellow-400"

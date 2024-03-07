@@ -2,10 +2,10 @@
     <div class="flex flex-row mx-[8rem]">
         <div>
             <div class="flex flex-row mb-8">
-                <div class="w-[16rem]">
+                <div class="min-w-[16rem]">
                     <slot name="left"></slot>
                 </div>
-                <div class="ml-6 w-full">
+                <div class="ml-6 min-w-[32rem]">
                     <slot></slot>
                 </div>
             </div>

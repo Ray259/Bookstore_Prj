@@ -1,26 +1,3 @@
-<script setup lang="ts">
-import axios from "axios";
-
-let data = ref({});
-let searchedItem = ref("");
-async function search() {
-    // if (searchedItem.value != null) {
-    //     let postData = { productname: searchedItem.value };
-    //     try {
-    //         const response = await axios.post(
-    //             "http://localhost:8080/api/books",
-    //             postData
-    //         );
-    //         data.value = response.data;
-    //         console.log(response.data);
-    //         console.log("POST request successful:");
-    //     } catch (error) {
-    //         console.error("POST request error:", error);
-    //     }
-    // }
-}
-</script>
-
 <template>
     <Header></Header>
     <!-- Banner -->

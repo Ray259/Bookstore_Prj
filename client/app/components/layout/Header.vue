@@ -112,13 +112,23 @@ const search = async () => {
                 <div v-for="g in genres" :key="g['prio']">
                     <NavItem
                         :isHeaderItem="true"
-                        :link="'/' + g['name']"
+                        :link="'/genre/' + g['name']"
                         :name="g['name']"
-                        :current="$props.current"
+                        :current="props.current"
                     />
                 </div>
-                <NavItem :isHeaderItem="true" link="/fiction" name="Events" />
-                <NavItem :isHeaderItem="true" link="/fiction" name="About Bookworm" />
+                <NavItem
+                    :isHeaderItem="true"
+                    :current="props.current"
+                    link="/Events"
+                    name="Events"
+                />
+                <NavItem
+                    :isHeaderItem="true"
+                    :current="props.current"
+                    link="/About"
+                    name="About"
+                />
             </div>
             <div></div>
         </div>
