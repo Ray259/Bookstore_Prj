@@ -1,5 +1,4 @@
 const { Book } = require("../models");
-const { Genre } = require("../models");
 const sequelize = require("sequelize");
 const { Op } = require("sequelize");
 const db = require("../models");
@@ -133,27 +132,4 @@ module.exports.query = async (req, res) => {
     }
 };
 
-// Genre
-module.exports.getAllGenres = async (req, res) => {
-    try {
-        const genres = await Genre.findAll({
-            order: [["prio", "ASC"]],
-            group: ["name", "prio"],
-        });
-        res.json(genres);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
 
-module.exports.getAllCategories = async (req, res) => {
-    try {
-        const categories = await Genre.findAll({
-            attributes: ["category"],
-            order: [[sequelize.literal("SUBSTRING(category, 1, 1)"), "ASC"]],
-        });
-        res.json(categories);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};

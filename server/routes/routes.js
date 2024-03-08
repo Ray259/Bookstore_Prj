@@ -12,6 +12,8 @@ const userController = require("../controller/userController");
 
 const cartController = require("../controller/cartController");
 
+const categoryController = require("../controller/categoryController");
+
 //auth
 //google passport
 router.get("/auth/google", authController.authenticateGoogle);
@@ -37,11 +39,15 @@ router.post("/books/update", bookController.update);
 
 router.get("/books/query", bookController.query);
 
-//books genre
+//categories
 
-router.get("/books/genres", bookController.getAllGenres);
+router.get("/category/allGenres", categoryController.getAllGenres);
 
-router.get("/books/categories", bookController.getAllCategories);
+router.get("/category/allCategories", categoryController.getAllCategories);
+
+router.get("/category/description", categoryController.getCategoryDescription);
+
+router.get("/category/allEvents", categoryController.getAllEvents);
 
 //users
 router.get("/user-profile", authenticate, userController.getPersonal);

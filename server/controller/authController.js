@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
 const { User } = require("../models");
-const sequelize = require("sequelize");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const secretkey = process.env.SECRET_KEY || "secret"

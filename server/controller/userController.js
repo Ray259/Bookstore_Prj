@@ -1,6 +1,4 @@
 const { User } = require("../models");
-const jwt = require("jsonwebtoken");
-const sequelize = require("sequelize");
 
 module.exports.getAll = async (req, res) => {
     try {
