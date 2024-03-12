@@ -1,4 +1,5 @@
-const { Cart, Book, Order } = require("../models");
+const { Cart, Book, Order, OrderDetail } = require("../models");
+const orderDetail = require("../models/order-detail");
 
 module.exports.view = async (req, res) => {
     try {
@@ -76,4 +77,31 @@ module.exports.delete = async (req, res) => {
     }
 };
 
-module.exports.order = async (req, res) => {};
+module.exports.order = async (req, res) => {
+    try {
+        const userID = req.user.id;
+        const cart = await Cart.findAll({
+            where: { fk_userId: userID, status: "pending" },
+            include: Book,
+        });
+
+        let total = 0;
+        for (c of cart) {
+            total += c.quantity * c.Book.price;
+        }
+        const order = await Order.create({ total: total, fk_userID: userID });
+        for (c of cart) {
+            await OrderDetail.create({
+                id: order.id,
+                quantity: c.quantity,
+                price: c.quantity * c.Book.price,
+                fk_isbn: c.fk_isbn,
+                fk_userID: c.fk_userId,
+            });
+        }
+        await Cart.destroy({ where: { fk_userId: userID } });
+        res.json(order);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

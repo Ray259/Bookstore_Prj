@@ -68,5 +68,6 @@ router.post("/update-cart", authenticate, cartController.update);
 router.post("/delete-from-cart", authenticate, cartController.delete);
 
 //order
+router.get("/order", authenticate, cartController.order);
 
 module.exports = router;

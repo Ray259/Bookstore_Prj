@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            Cart.belongsTo(models.Book, {
+                foreignKey: "fk_isbn",
+                targetKey: "isbn",
+            });
         }
     }
     Cart.init(
