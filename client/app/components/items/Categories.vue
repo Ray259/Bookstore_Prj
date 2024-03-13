@@ -6,7 +6,7 @@ let data = ref(null);
 
 onMounted(async () => {
     try {
-        const response = await axios.get("http://localhost:8080/api/books/categories");
+        const response = await axios.get("http://localhost:8080/api/category/allCategories");
         categories.value = await response.data;
         console.log(categories);
         console.log(categories.value);

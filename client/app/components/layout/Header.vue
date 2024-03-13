@@ -15,10 +15,10 @@ function handleScroll() {
     isScrolled.value = window.scrollY > 2;
 }
 let genres = ref([]);
-let user = ref("User");
+let user = ref("");
 onMounted(async () => {
     try {
-        const response = await axios.get("http://localhost:8080/api/books/genres");
+        const response = await axios.get("http://localhost:8080/api/category/allGenres");
         genres.value = await response.data;
         //await console.log(genres.value);
     } catch (error) {
@@ -95,10 +95,9 @@ const search = async () => {
                         :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/acc.png?1702443694490'"
                     />
                     <span class="mx-1 text-xs"
-                        ><NavItem :link="'/account/login'" :name="user">{{
-                            user
-                        }}</NavItem></span
-                    >
+                        ><NavItem v-if="user" :link="'/account'" :name="user"></NavItem>
+                        <NavItem v-else :link="'/account/login'" :name="'Log in'"></NavItem
+                    ></span>
                 </div>
             </div>
         </div>

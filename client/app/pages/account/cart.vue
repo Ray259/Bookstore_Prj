@@ -1,6 +1,6 @@
 <script setup>
 import axios from "axios";
-import { ref, onMounted } from "vue";
+const router = useRouter();
 
 let cart = ref([]);
 let updatedCart = ref([]);
@@ -19,14 +19,12 @@ onMounted(async () => {
 const update = async () => {
     //console.log(updatedCart);
     for (let i = 0; i < updatedCart.value.length; i++) {
-        console.log(updatedCart.value[i].q.changes);
         if (updatedCart.value[i].q.changes != 0)
             try {
-                //console.log(updatedCart.value[i].q.quantity);
-                console.log({
-                    isbn: updatedCart.value[i].isbn,
-                    quantity: updatedCart.value[i].q.quantity,
-                });
+                // console.log({
+                //     isbn: updatedCart.value[i].isbn,
+                //     quantity: updatedCart.value[i].q.quantity,
+                // });
                 const response = await axios.post(
                     "http://localhost:8080/api/update-cart",
                     {
@@ -35,8 +33,8 @@ const update = async () => {
                     },
                     { withCredentials: true }
                 );
-                //await console.log(response);
-                await navigateTo("/account/cart", { replace: true });
+                // router.push("/account/cart");
+                reloadNuxtApp()
             } catch (error) {
                 console.error("Error updating cart:", error);
             }
@@ -63,12 +61,12 @@ const deleteItem = async (isbn) => {
 
 <template>
     <Header></Header>
-    <div class="mx-[8rem] text-sm">
-        <div class="py-6 text-xl">CART</div>
+    <div class="mx-[8rem] text-sm relative">
+        <div class="py-6 text-2xl">CART</div>
 
-        <div v-if="cart">
+        <div v-if="cart.length > 0">
             <table class="table-fixed">
-                <thead class="border-y text-xs bg-slate-50">
+                <thead class="border-y text-xs bg-slate-200">
                     <tr>
                         <th class="w-1/6"></th>
                         <th class="text-left w-1/3 py-2">Product</th>
@@ -118,21 +116,22 @@ const deleteItem = async (isbn) => {
                     </tr>
                 </tbody>
             </table>
-            <div class="flex flex-grow flex-row justify-between bg-slate-100">
-                <button
-                    @click="navigateTo('/')"
-                    class="p-2 text-xs hover:text-white bg-white hover:bg-red-600 m-2 border"
-                >
-                    CONTINUE SHOPPING
-                </button>
-                <button
-                    @click="update"
-                    class="p-2 text-xs bg-white hover:text-white hover:bg-red-600 m-2 border"
-                >
-                    Update quantity
-                </button>
-            </div>
         </div>
-        <div v-else>No products in your cart. Come back shop to buy.</div>
+        <div v-else class="font- mb-10">No products in your cart. Come back shop to buy.</div>
+        <div class="flex flex-grow flex-row justify-between mb-72 bg-slate-200">
+            <button
+                @click="navigateTo('/')"
+                class="p-2 text-xs hover:text-white bg-slate-50 hover:bg-red-600 m-2 border"
+            >
+                CONTINUE SHOPPING
+            </button>
+            <button
+                v-if="cart.length > 0"
+                @click="update"
+                class="p-2 text-xs bg-slate-50 hover:text-white hover:bg-red-600 m-2 border"
+            >
+                Update quantity
+            </button>
+        </div>
     </div>
 </template>

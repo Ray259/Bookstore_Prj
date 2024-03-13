@@ -16,11 +16,9 @@
 
         <!-- Main Content -->
         <div class="flex-col flex-1 ml-4">
-            
             <!-- <ItemList :obj="data" /> -->
             <ItemSlider :displayName="'NEW ARRIVAL'" :category="'all'" />
             <ItemSlider :displayName="'RARE & COLLECTIBLES'" :category="'all'" />
-
         </div>
     </div>
 </template>

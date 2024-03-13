@@ -1,4 +1,5 @@
 const { Genre, Event } = require("../models");
+const sequelize = require("sequelize");
 
 module.exports.getAllGenres = async (req, res) => {
     try {
@@ -48,4 +49,4 @@ module.exports.getAllEvents = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-}
+};
