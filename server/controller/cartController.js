@@ -5,7 +5,7 @@ module.exports.view = async (req, res) => {
     try {
         const id = req.user.id;
         const cart = await Cart.findAll({
-            where: { fk_userId: id, status: "pending" },
+            where: { fk_userId: id },
             raw: true,
         });
         for (const item of cart) {
@@ -81,26 +81,42 @@ module.exports.order = async (req, res) => {
     try {
         const userID = req.user.id;
         const cart = await Cart.findAll({
-            where: { fk_userId: userID, status: "pending" },
+            where: { fk_userId: userID },
             include: Book,
         });
+        if (cart.length) {
+            let total = 0;
+            for (c of cart) {
+                total += c.quantity * c.Book.price;
+            }
+            const order = await Order.create({ total: total, fk_userID: userID });
 
-        let total = 0;
-        for (c of cart) {
-            total += c.quantity * c.Book.price;
+            for (c of cart) {
+                const orderId = order.id;
+                await OrderDetail.create({
+                    orderId: orderId,
+                    quantity: c.quantity,
+                    price: c.quantity * c.Book.price,
+                    fk_isbn: c.fk_isbn,
+                    fk_userID: c.fk_userId,
+                });
+            }
+            await Cart.destroy({ where: { fk_userId: userID } });
+            res.json(order);
+        } else {
+            res.json("cart is empty");
         }
-        const order = await Order.create({ total: total, fk_userID: userID });
-        for (c of cart) {
-            await OrderDetail.create({
-                id: order.id,
-                quantity: c.quantity,
-                price: c.quantity * c.Book.price,
-                fk_isbn: c.fk_isbn,
-                fk_userID: c.fk_userId,
-            });
-        }
-        await Cart.destroy({ where: { fk_userId: userID } });
-        res.json(order);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports.viewOrders = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const orders = await Order.findAll({ where: { fk_userID: userId } });
+        res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

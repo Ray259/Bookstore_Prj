@@ -68,6 +68,8 @@ router.post("/update-cart", authenticate, cartController.update);
 router.post("/delete-from-cart", authenticate, cartController.delete);
 
 //order
-router.get("/order", authenticate, cartController.order);
+router.get("/place-order", authenticate, cartController.order);
+
+router.get("/order-history", authenticate, cartController.viewOrders);
 
 module.exports = router;

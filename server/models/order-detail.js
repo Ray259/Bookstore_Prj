@@ -20,10 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     }
     OrderDetail.init(
         {
-            id: {
+            orderId: {
                 type: DataTypes.UUID,
                 allowNull: false,
-                primaryKey: true,
             },
             quantity: {
                 type: DataTypes.INTEGER,
@@ -33,10 +32,14 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
+            status: {
+                type: DataTypes.STRING,
+                defaultValue: "pending",
+            }
         },
         {
             sequelize,
-            modelName: "Order Detail",
+            modelName: "OrderDetail",
         }
     );
     return OrderDetail;
