@@ -71,8 +71,7 @@ const props = defineProps({
 <template>
     <div class="flex flex-col">
         <span class="flex justify-center m-6"
-            ><ProductsNumber :number="filteredBooks.length"></ProductsNumber
-        ></span>
+            ><Badge :content="`Have ${filteredBooks.length} product(s).`"/></span>
 
         <ul class="flex flex-wrap">
             <li v-for="b in display" class="mb-4 mr-2">
