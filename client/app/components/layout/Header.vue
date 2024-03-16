@@ -1,5 +1,9 @@
-<script setup lang="ts">
+<script setup>
 import axios from "axios";
+// import { useUserStore } from "~/stores/user";
+
+// const userProfile = useUserStore();
+// userProfile.getUserProfile();
 
 const isScrolled = ref(false);
 
@@ -28,11 +32,13 @@ onMounted(async () => {
         const response = await axios.get("http://localhost:8080/api/user-profile", {
             withCredentials: true,
         });
-        user.value = await response.data.name;
+        user.value = response.data;
     } catch (error) {
         console.error("Error fetching data:", error);
     }
 });
+const emit = defineEmits(["user"]);
+emit("user", user);
 
 const props = defineProps({
     current: String,
@@ -95,7 +101,7 @@ const search = async () => {
                         :src="'https://bizweb.dktcdn.net/100/326/228/themes/683227/assets/acc.png?1702443694490'"
                     />
                     <span class="mx-1 text-xs"
-                        ><NavItem v-if="user" :link="'/account'" :name="user"></NavItem>
+                        ><NavItem v-if="user" :link="'/account'" :name="user.name"></NavItem>
                         <NavItem v-else :link="'/account/login'" :name="'Log in'"></NavItem
                     ></span>
                 </div>

@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     modules: [
         "@nuxt/ui",
+        '@pinia/nuxt',
         "@nuxtjs/tailwindcss",
         (_options, nuxt) => {
             nuxt.hooks.hook("vite:extendConfig", (config) => {

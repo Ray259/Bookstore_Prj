@@ -1,6 +1,6 @@
 <template>
     <v-app class="font-nunito">
         <slot></slot>
-        <Footer></Footer
+        <Footer class="mt-32"></Footer
     ></v-app>
 </template>
