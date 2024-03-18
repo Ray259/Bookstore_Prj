@@ -48,26 +48,7 @@ const buy = () => {};
     <Header></Header>
     <div class="font-light text-sm">
         <!-- Home > Category > Name -->
-        <div class="mx-[8rem] my-[1rem]">
-            <span><NavItem :name="'Home'" :link="'/'" /></span>
-            <font-awesome-icon
-                icon="fa fa-angle-right"
-                class="mx-2 w-1.5"
-                style="vertical-align: middle"
-            />
-            <span
-                ><NavItem
-                    :isCategoryItem="true"
-                    :name="data.category"
-                    :link="'/' + data.category"
-            /></span>
-            <font-awesome-icon
-                icon="fa fa-angle-right"
-                class="mx-2 w-1.5"
-                style="vertical-align: middle"
-            />
-            <span class="text-xs">{{ data.name }}</span>
-        </div>
+        <BreadCrumb :first="data.category" :name="data.name" />
         <!-- Main -->
         <div class="flex flex-row mt-4">
             <!-- Details -->
