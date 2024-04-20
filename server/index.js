@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/", router);
-
+console.log(process.env.MYSQL_PORT)
 db.sequelize.sync({ alter: true }).then(() => {
     app.listen(port, () => {
         console.log("Server running on port " + port);

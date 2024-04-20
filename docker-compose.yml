@@ -1,32 +1,41 @@
 version: "3.8"
 
 services:
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    env_file:
+      - ./server/.env
+    environment:
+      MYSQL_ROOT_HOST: '%'      
+    volumes:
+      - ~/mysql:/var/lib/mysql
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        timeout: 20s
+        retries: 10
+
+
+  be:
+    build: ./server
+    ports:
+      - 8080:8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+    env_file:
+      - ./server/.env
+    restart: always
+
+
   fe:
     build: ./client
     ports:
       - "3000:3000"
     restart: always
 
-  mysql:
-    container_name: localhost
-    image: mysql:latest
-    restart: always
-    ports:
-      - 3307:3306
-    env_file:
-      - ./server/.env
-    volumes:
-      - mysql:/var/lib/mysql
-
-  be:
-    build: ./server
-    ports:
-      - 8080:80
-    depends_on:
-      - mysql
-    env_file:
-      - ./server/.env
-
 volumes:
   mysql:
     name: db
+
