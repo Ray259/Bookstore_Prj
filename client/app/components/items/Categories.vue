@@ -1,6 +1,5 @@
-<script setup lang="ts">
+<script setup>
 import axios from "axios";
-import { ref, onMounted } from "vue";
 let categories = ref([]);
 let data = ref(null);
 

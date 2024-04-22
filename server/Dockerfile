@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-WORKDIR /app/backendd
+WORKDIR /app/backend
 
 COPY package*.json ./
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:seed"]

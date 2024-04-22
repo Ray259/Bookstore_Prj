@@ -13,9 +13,10 @@ services:
       - ~/mysql:/var/lib/mysql
     healthcheck:
         test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-        timeout: 20s
+        interval: 2s
         retries: 10
-
+    networks:
+      - mynetwork
 
   be:
     build: ./server
@@ -27,15 +28,37 @@ services:
     env_file:
       - ./server/.env
     restart: always
-
+    networks:
+      - mynetwork
 
   fe:
     build: ./client
     ports:
       - "3000:3000"
     restart: always
+    networks:
+      - mynetwork
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    depends_on:
+      - mysql
+    networks:
+      - mynetwork
 
 volumes:
   mysql:
     name: db
 
+networks:
+  mynetwork:
