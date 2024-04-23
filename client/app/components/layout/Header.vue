@@ -1,8 +1,8 @@
 <script setup>
 import axios from "axios";
-// import { useUserStore } from "~/stores/user";
+import { useUserStore } from "~/stores/user";
 
-// const userProfile = useUserStore();
+const userProfile = useUserStore();
 // userProfile.getUserProfile();
 
 const isScrolled = ref(false);
@@ -33,6 +33,9 @@ onMounted(async () => {
             withCredentials: true,
         });
         user.value = response.data;
+        userProfile.setName = response.data.name;
+        console.log("setname", response.data.name);
+        console.log("getname", userProfile.getName);
     } catch (error) {
         console.error("Error fetching data:", error);
     }

@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="mx-[8rem] my-[1rem]">
+    <div class="mx-[8rem] my-[1rem] text-sm font-light">
         <span><NavItem :name="'Home'" :link="'/'" /></span>
 
         <span v-if="props.first">

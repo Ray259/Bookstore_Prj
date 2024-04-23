@@ -1,5 +1,8 @@
 <script setup>
 import axios from "axios";
+import { useUserStore } from "~/stores/user";
+
+const userProfile = useUserStore();
 const orders = ref([]);
 onMounted(async () => {
     try {
@@ -16,16 +19,17 @@ const formatDate = (d) => {
     const date = new Date(d);
     return date.toLocaleDateString("en-US");
 };
-const user = ref(null);
+const username = userProfile.name;
+console.log("username", userProfile)
 </script>
 
 <template>
     <div>
-        <Header @user="(u) => (user = u)"></Header>
+        <Header></Header>
         <div class="flex flex-row font-bold ml-[8rem]">
             <div class="">
                 <div class="text-xl font-light my-4">ACCOUNT INFORMATION</div>
-                <div class="text-sm my-3">Hi, {{ user.name }}</div>
+                <div class="text-sm my-3">Hi, {{ username }}</div>
                 <div class="my-3">Recently Order(s)</div>
                 <table class="">
                     <thead class="border-y text-xs bg-slate-200 min-w-80">

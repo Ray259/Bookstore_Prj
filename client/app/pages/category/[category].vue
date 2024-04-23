@@ -20,6 +20,7 @@ onMounted(async () => {
 <template>
     <div>
         <Header :current="genre"></Header>
+        <BreadCrumb :first="category" />
         <Container>
             <template #left>
                 <Filter @filter="(f) => (filter = f)"></Filter>
