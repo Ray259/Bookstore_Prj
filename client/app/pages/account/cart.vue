@@ -16,15 +16,19 @@ onMounted(async () => {
     }
 });
 
+const total = ref(
+    computed(() => {
+        return cart.value.reduce((acc, item) => {
+            return acc + item.bookInfo.price * item.quantity;
+        }, 0);
+    })
+);
+
 const update = async () => {
     //console.log(updatedCart);
     for (let i = 0; i < updatedCart.value.length; i++) {
         if (updatedCart.value[i].q.changes != 0)
             try {
-                // console.log({
-                //     isbn: updatedCart.value[i].isbn,
-                //     quantity: updatedCart.value[i].q.quantity,
-                // });
                 const response = await axios.post(
                     "http://localhost:8080/api/update-cart",
                     {
@@ -34,10 +38,21 @@ const update = async () => {
                     { withCredentials: true }
                 );
                 // router.push("/account/cart");
-                reloadNuxtApp()
+                reloadNuxtApp();
             } catch (error) {
                 console.error("Error updating cart:", error);
             }
+    }
+};
+
+const order = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/place-order", {
+            withCredentials: true,
+        });
+        router.push("/account/");
+    } catch (error) {
+        console.error("Error ordering:", error);
     }
 };
 
@@ -52,7 +67,8 @@ const deleteItem = async (isbn) => {
                 withCredentials: true,
             }
         );
-        navigateTo("/account/cart");
+        reloadNuxtApp();
+        // navigateTo("/account/cart");
     } catch (error) {
         console.error("Error deleting item:", error);
     }
@@ -105,7 +121,9 @@ const deleteItem = async (isbn) => {
                                 "
                             ></QuantityButton>
                         </td>
-                        <td class="text-left">{{ c.bookInfo.price * c.quantity }}</td>
+                        <td class="text-left">
+                            {{ (c.bookInfo.price * c.quantity).toLocaleString("de-DE") }}
+                        </td>
                         <td>
                             <span
                                 @click="deleteItem(c.bookInfo.isbn)"
@@ -118,7 +136,7 @@ const deleteItem = async (isbn) => {
             </table>
         </div>
         <div v-else class="font- mb-10">No products in your cart. Come back shop to buy.</div>
-        <div class="flex flex-grow flex-row justify-between mb-72 bg-slate-200">
+        <div class="flex flex-grow flex-row justify-between bg-slate-200">
             <button
                 @click="navigateTo('/')"
                 class="p-2 text-xs hover:text-white bg-slate-50 hover:bg-red-600 m-2 border"
@@ -132,6 +150,21 @@ const deleteItem = async (isbn) => {
             >
                 Update quantity
             </button>
+        </div>
+        <div v-if="cart.length > 0" class="flex justify-end">
+            <div class="flex-col">
+                <div class="border-b text-base my-6">TOTAL</div>
+                <div class="flex justify-between font-bold my-4">
+                    Sub-total
+                    <div class="text-red-600">{{ total.toLocaleString("de-DE") }}₫</div>
+                </div>
+                <button
+                    @click="order"
+                    class="bg-red-600 text-white text-xl hover:bg-slate-800 py-5 px-16"
+                >
+                    Proceed To Check Out
+                </button>
+            </div>
         </div>
     </div>
 </template>
