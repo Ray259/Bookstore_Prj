@@ -22,7 +22,7 @@ module.exports.getPersonal = async (req, res) => {
 
 module.exports.create = async (req, res) => {
     try {
-        const { email, password, name, phone } = req.body;
+        const { email, password, name, phone, role } = req.body;
         const t = await User.findOne({ where: { email: email } });
         if (t) {
             return res.status(400).send("The user with this email already exists");
@@ -32,6 +32,7 @@ module.exports.create = async (req, res) => {
                 password: password,
                 name: name,
                 phone: phone,
+                role: role,
             });
             res.json({ email, password, name, phone });
         }

@@ -40,23 +40,28 @@ onMounted(async () => {
                         :isHeaderItem="true"
                         :name="'Orders'"
                         link="/admin/manage-orders"
-                    />
-
-                    <NavItem
-                        v-if="user"
-                        :isHeaderItem="true"
-                        :link="'/admin'"
-                        :name="user.name"
-                    />
-                    <NavItem
-                        v-else
-                        :isHeaderItem="true"
-                        :link="'/account/login'"
-                        :name="'Log in'"
-                    />
+                    />                    
+                    <div class="ml-20">
+                        <NavItem
+                            v-if="user"
+                            :isHeaderItem="true"
+                            :link="'/admin'"
+                            :name="user.name"
+                        />
+                        <NavItem
+                            v-else
+                            :isHeaderItem="true"
+                            :link="'/account/login'"
+                            :name="'Log in'"
+                        />
+                    </div>
                 </div>
             </div>
-            <slot></slot>
+            <div class="flex justify-center h-full bg-slate-100">
+                <div class="bg-white pt-15 px-10">
+                    <slot></slot>
+                </div>
+            </div>
         </v-app>
     </div>
 </template>
