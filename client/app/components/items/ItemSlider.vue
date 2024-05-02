@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import axios from "axios";
 import { ref, onMounted } from "vue";
 
@@ -9,18 +9,47 @@ const props = defineProps({
     category: String,
 });
 
-let obj = ref([]);
+let books = ref([]);
+let allbooks = ref([]);
+let fictionbooks = ref([]);
+let nonfictionbooks = ref([]);
+let childrenbooks = ref([]);
 onMounted(async () => {
     try {
-        const response = await axios.get("http://localhost:8080/api/books", {
-            params: { category: props.category },
+        if (props.category === "all")
+            allbooks = await axios.get("http://localhost:8080/api/books");
+        else
+            allbooks = await axios.get("http://localhost:8080/api/books/query", {
+                params: { category: props.category },
+            });    
+        fictionbooks = await axios.get("http://localhost:8080/api/books/query", {
+            params: { genre: "Fiction" },
         });
-        obj.value = await response.data;
-        await console.log(obj.value);
+        nonfictionbooks = await axios.get("http://localhost:8080/api/books/query", {
+            params: { genre: "Non Fiction" },
+        });
+        childrenbooks = await axios.get("http://localhost:8080/api/books/query", {
+            params: { genre: "Kid's & Young Adult" },
+        });
+        books.value = await allbooks.data;
+        // await console.log(books.value);
     } catch (error) {
         console.error("Error fetching data:", error);
     }
 });
+
+const allbook = () => {
+    books.value = allbooks.data;
+};
+const fiction = () => {
+    books.value = fictionbooks.data;    
+};
+const nonfiction = () => {
+    books.value = nonfictionbooks.data;
+};
+const children = () => {
+    books.value = childrenbooks.data;
+};
 </script>
 
 <!-- Component to use on main page -->
@@ -32,24 +61,23 @@ onMounted(async () => {
         </span>
     </NuxtLink>
     <div class="ml-13 pa-2 border-b mb-4 text-[#da251c] border-t">
-        <span class="m-2 pr-4 border-r">All</span>
-        <span class="m-2 pr-4 border-r">FICTION</span>
-        <span class="m-2 pr-4 border-r">NON FICTION</span>
-        <span class="m-2 pr-4">CHILDREN'S BOOK</span>
+        <span class="m-2 pr-4 border-r hover:cursor-pointer" @click="allbook">All</span>
+        <span class="m-2 pr-4 border-r hover:cursor-pointer" @click="fiction">FICTION</span>
+        <span class="m-2 pr-4 border-r hover:cursor-pointer" @click="nonfiction"
+            >NON FICTION</span
+        >
+        <span class="m-2 pr-4 hover:cursor-pointer" @click="children">CHILDREN'S BOOK</span>
     </div>
     <v-sheet max-width="1000">
         <v-slide-group v-model="model" class="pb-4" selected-class="bg-success" show-arrows>
-            <v-slide-group-item
-                v-for="item in obj"
-                :key="item['id']"
-                v-slot="{ isSelected, toggle, selectedClass }"
+            <v-slide-group-item v-for="item in books"
                 ><v-card class="mr-2">
                     <Item
-                        :name="item['name']"
-                        :price="item['price']"
-                        :author="item['author']"
-                        :image="item['image']"
-                        :isbn="item['isbn']"
+                        :name="item.name"
+                        :price="item.price"
+                        :author="item.author"
+                        :image="item.image"
+                        :isbn="item.isbn"
                     />
                 </v-card>
             </v-slide-group-item>

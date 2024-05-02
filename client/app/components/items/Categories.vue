@@ -12,8 +12,6 @@ onMounted(async () => {
         try {
             const response = await axios.get("http://localhost:8080/api/category/allEvents");
             categories.value = await response.data;
-            console.log(categories);
-            console.log(categories.value);
         } catch (error) {
             console.error("GET request error:", error);
         }
@@ -23,8 +21,6 @@ onMounted(async () => {
                 "http://localhost:8080/api/category/allCategories"
             );
             categories.value = await response.data;
-            console.log(categories);
-            console.log(categories.value);
         } catch (error) {
             console.error("GET request error:", error);
         }
