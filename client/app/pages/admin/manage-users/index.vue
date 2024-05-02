@@ -14,6 +14,11 @@ onMounted(async () => {
         console.error("Error fetching data:", error);
     }
 });
+
+const router = useRouter();
+const edit = (id) => {
+    router.push(`/admin/manage-users/${id}`);
+};
 </script>
 <template>
     <div class="mt-20">
@@ -29,7 +34,7 @@ onMounted(async () => {
                 </tr>
             </thead>
             <tbody class="border-b" v-if="users.length > 0">
-                <tr v-for="u in users" class="border-b font-light">
+                <tr v-for="u in users" class="border-b font-light hover:cursor-pointer hover:bg-slate-100" @click="edit(u.id)">
                     <td class="p-4 border-r text-xs">{{ u.id }}</td>
                     <td class="text-sm p-2 text-red-600">{{ u.name }}</td>
                     <td class="p-4">
