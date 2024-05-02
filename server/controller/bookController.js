@@ -60,16 +60,16 @@ module.exports.update = async (req, res) => {
         const t = await Book.findOne({ where: { isbn: book.isbn } });
         if (t) {
             const updatedFields = {};
-            if (book.image) updatedFields.image = book.image;
-            if (book.name) updatedFields.name = book.name;
-            if (book.author) updatedFields.author = book.author;
-            if (book.publisher) updatedFields.publisher = book.publisher;
-            if (book.release) updatedFields.release = book.release;
-            if (book.category) updatedFields.category = book.category;
-            if (book.price) updatedFields.price = book.price;
-            if (book.format) updatedFields.format = book.format;
-            if (book.condition) updatedFields.condition = book.condition;
-            if (book.overview) updatedFields.overview = book.overview;
+            updatedFields.image = book.image;
+            updatedFields.name = book.name;
+            updatedFields.author = book.author;
+            updatedFields.publisher = book.publisher;
+            updatedFields.release = book.release;
+            updatedFields.category = book.category;
+            updatedFields.price = book.price;
+            updatedFields.format = book.format;
+            updatedFields.condition = book.condition;
+            updatedFields.overview = book.overview;
 
             await Book.update(updatedFields, { where: { isbn: book.isbn } });
             res.json("Book updated");
