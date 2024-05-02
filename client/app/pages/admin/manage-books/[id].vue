@@ -33,19 +33,34 @@ const saveChanges = async () => {
         console.error("Error saving changes:", error);
     }
 };
+const deleteBook = async () => {
+    try {
+        const response = await axios.post("http://localhost:8080/api/books/delete/" + id, {
+            withCredentials: true,
+        });
+    } catch (error) {
+        console.error("Error deleting book:", error);
+    }
+};
 </script>
 <template>
     <div class="flex flex-row">
-        <div class="w-80">
+        <div class="flex flex-col w-80">
             <div class="flex items-center justify-center">
                 <img class="object-contain border" :src="book.image" />
             </div>
-            <div class="font-bold mt-2">URL:</div>
+            <div class="font-bold mt-2">Image URL:</div>
             <textarea
                 v-model="book.image"
-                rows="2"
+                rows="3"
                 class="border text-xs w-full p-2"
             ></textarea>
+            <button
+                class="text-white bg-red-600 text-lg font-bold px-4 py-2 rounded hover:bg-red-600 mt-auto mb-4"
+                @click="deleteBook"
+            >
+                Delete Book
+            </button>
         </div>
         <div class="flex flex-col m-4">
             <div class="font-bold">ISBN: {{ book.isbn }}</div>
