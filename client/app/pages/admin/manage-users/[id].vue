@@ -23,12 +23,11 @@ onMounted(async () => {
     }
 });
 
-
 const saveChanges = async () => {
     try {
         const response = await axios.post(
-            "http://localhost:8080/api/books/update",
-            book.value,
+            "http://localhost:8080/api/users/update",
+            user.value,
             {
                 withCredentials: true,
             }
@@ -37,9 +36,9 @@ const saveChanges = async () => {
         console.error("Error saving changes:", error);
     }
 };
-const deleteBook = async () => {
+const deleteUser = async () => {
     try {
-        const response = await axios.post("http://localhost:8080/api/books/delete/" + id, {
+        const response = await axios.post("http://localhost:8080/api/users/delete/" + id, {
             withCredentials: true,
         });
     } catch (error) {
@@ -128,6 +127,22 @@ const formatDate = (d) => {
                 <td></td>
             </tr>
         </tbody>
-        <tbody v-else class="m-4 font-light text-sm">No orders.</tbody>
+        <tbody v-else class="m-4 font-light text-sm">
+            No orders.
+        </tbody>
     </table>
+    <div class="flex flex-row justify-between m-10">
+        <button
+            class="text-white bg-red-600 text-lg font-bold px-4 py-2 rounded hover:bg-slate-800"
+            @click="deleteUser"
+        >
+            Delete User
+        </button>
+        <button
+            class="text-white bg-yellow-400 text-lg font-bold px-10 py-2 rounded hover:bg-red-600"
+            @click="saveChanges"
+        >
+            Save changes
+        </button>
+    </div>
 </template>
