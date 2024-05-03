@@ -14,7 +14,7 @@ onMounted(async () => {
             withCredentials: true,
         });
         user.value = await res1.data;
-        const res2 = await axios.get("http://localhost:8080/api/order-history", {
+        const res2 = await axios.get("http://localhost:8080/api/order-history/" + id, {
             withCredentials: true,
         });
         orders.value = await res2.data;

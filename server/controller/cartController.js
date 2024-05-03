@@ -112,12 +112,26 @@ module.exports.order = async (req, res) => {
     }
 };
 
-module.exports.viewOrders = async (req, res) => {
+module.exports.viewOrderHistory = async (req, res) => {
     try {
         const userId = req.user.id;
-        const orders = await Order.findAll({ where: { fk_userID: userId } });
+        const orders = await getOrderHistory(userId);        
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
+module.exports.viewOrderHistoryById = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const orders = await getOrderHistory(userId);
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+const getOrderHistory = async (id) => {
+    return await Order.findAll({ where: { fk_userID: id } });
+}

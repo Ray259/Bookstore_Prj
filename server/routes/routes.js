@@ -68,7 +68,9 @@ router.post("/delete-from-cart", authenticate, cartController.delete);
 //order
 router.get("/place-order", authenticate, cartController.order);
 
-router.get("/order-history", authenticate, cartController.viewOrders);
+router.get("/order-history", authenticate, cartController.viewOrderHistory);
+
+router.get("/order-history/:id", authenticate, cartController.viewOrderHistoryById);
 
 //admin
 router.get("/users", userController.getAll);

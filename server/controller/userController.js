@@ -66,8 +66,7 @@ module.exports.delete = async (req, res) => {
 };
 
 module.exports.update = async (req, res) => {
-    const id = req.params.id;
-    const { email, password, name, phone, role } = req.body;
+    const { id, email, password, name, phone, role } = req.body;
     const user = await User.findOne({ where: { id: id } });
     if (user) {
         const update = {};
