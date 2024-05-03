@@ -52,8 +52,6 @@ router.get("/category/allEvents", categoryController.getAllEvents);
 //users
 router.get("/user-profile", authenticate, userController.getPersonal);
 
-router.get("/users", userController.getAll);
-
 router.post("/users/create", userController.create);
 
 router.post("/users/delete/:id", userController.delete);
@@ -72,4 +70,11 @@ router.get("/place-order", authenticate, cartController.order);
 
 router.get("/order-history", authenticate, cartController.viewOrders);
 
+//admin
+router.get("/users", userController.getAll);
+
+router.get("/user/:id", userController.getPersonalById);
+
 module.exports = router;
+
+

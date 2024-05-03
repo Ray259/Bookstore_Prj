@@ -20,6 +20,7 @@ passport.use(
                     email: profile.emails[0].value,
                 },
             });
+            profile.role = "client";
             return cb(null, profile);
         }
     )

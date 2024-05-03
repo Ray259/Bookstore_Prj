@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const secretkey = process.env.SECRET_KEY || "secret"
+const secretkey = process.env.SECRET_KEY || "secret";
 
 module.exports.register = async (req, res) => {
     const { email, password, name, phone } = req.body;
@@ -32,7 +32,7 @@ module.exports.login = async (req, res) => {
     if (!isMatch) {
         return res.status(400).send("Invalid email or password.");
     } else {
-        sendToken(user.id, res);
+        sendToken(user.id, user.role, res);
         // res.redirect(process.env.CLIENT_URL);
     }
 };
@@ -51,15 +51,15 @@ module.exports.googleCallback = (req, res, next) => {
             return next(err);
         }
         req.user = profile;
-        sendToken(profile.id, res);
+        sendToken(profile.id, profile.role, res);
         //console.log(req.user);
         res.redirect(process.env.CLIENT_URL);
     })(req, res, next);
 };
 
-const sendToken = (userid, res) => {
+const sendToken = (userid, role, res) => {
     const expiration = 24 * 60 * 60;
-    const token = jwt.sign({ id: userid }, secretkey , {
+    const token = jwt.sign({ id: userid, role: role }, secretkey, {
         expiresIn: expiration,
     });
     //console.log(jwt.verify(token, "secret"))
