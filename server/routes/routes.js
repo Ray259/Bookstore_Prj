@@ -72,6 +72,8 @@ router.get("/order-history", authenticate, cartController.viewOrderHistory);
 
 router.get("/order-history/:id", authenticate, cartController.viewOrderHistoryById);
 
+router.get("/order-details/:id", cartController.viewOrderDetails);
+
 //admin
 router.get("/users", userController.getAll);
 

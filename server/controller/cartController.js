@@ -135,3 +135,16 @@ module.exports.viewOrderHistoryById = async (req, res) => {
 const getOrderHistory = async (id) => {
     return await Order.findAll({ where: { fk_userID: id } });
 }
+
+module.exports.viewOrderDetails = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        const orderDetails = await OrderDetail.findAll({
+            where: { orderId: orderId },
+            include: Book,
+        });
+        res.json(orderDetails);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
